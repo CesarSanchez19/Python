@@ -1,5 +1,7 @@
 ### Operador Aritmeticos ###
 
+# Los operadores aritmeticos son los que se utilizan para realizar operaciones matematicas
+
 print(3 + 4) # Suma
 print(3 - 4) # Resta
 print(3 * 4) # Multiplicacion
@@ -18,6 +20,8 @@ my_float = 2.5 * 2
 print("Hola " * int(my_float))
 
 ### Operador Comparativos ###
+
+# Los operadores comparativos son los que se utilizan para comparar dos valores
 
 print(3 > 4)
 print(3 < 4)
@@ -38,6 +42,8 @@ print("Hola" == "Hola")
 print("Hola" != "Python")
 
 ### Operador logicos ###
+
+# Los operadores logicos son los que se utilizan para realizar operaciones logicas entre dos valores booleanos
 
 print("Comparar operardores logicos")
 print(3 > 4 and "Hola" > "Python")

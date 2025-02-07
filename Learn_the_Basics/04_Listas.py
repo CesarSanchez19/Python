@@ -1,5 +1,18 @@
 ### Lists ###
 
+## Las listas son un tipo de datos que se utiliza para almacenar varios elementos en un solo lugar.
+
+
+"""
+1. Son ordenadas, mantienen el orden en el que han sido definidas
+2. Pueden ser formadas por tipos arbitrarios
+3. Pueden ser indexadas con [i].
+4. Se pueden anidar, es decir, meter una dentro de la otra.
+5. Son mutables, ya que sus elementos pueden ser modificados.
+6. Son dinámicas, ya que se pueden añadir o eliminar elementos.
+
+"""
+
 my_lists = list()
 my_other_list = []
 
@@ -106,3 +119,4 @@ print(my_new_list[1:3])
 my_lists = "Hola python"
 print(my_lists)
 print(type(my_lists)) 
+

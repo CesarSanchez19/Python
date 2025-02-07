@@ -1,5 +1,7 @@
 ### Strings ###
 
+# Un string es una secuencia de caracteres, puedes acceder a los elementos de un string por medio de indices
+
 my_strigns = "Mi string"
 my_other_strigns = 'Mi otro string'
 
@@ -94,3 +96,40 @@ print(language.upper().isupper())# Primero transforma en mayuscula y luego verif
 
 #Imprime si la cadena de texto comienza con cierta letra o palabra, regresara un valor booleano
 print(language.startswith("py"))
+
+#Tambien puedes imprimir un parrado de texto declarando tres comillas simples o dobles
+a = '''Lorem ipsum dolor sit amet,
+consectetur adipiscing elit,
+sed do eiusmod tempor incididunt
+ut labore et dolore magna aliqua.'''
+print(a) 
+
+# Los strings son arreglos de caracteres, por lo que podemos acceder a ellos por medio de indices
+#Imprime el caracter de la posicion 1
+a = "Hello, World!"
+print(a[1]) # e
+
+# Imprime el caractar separado uno por uno usando un ciclo "for" de manera vertical
+for x in "banana":
+  print(x)
+  
+# funcion "swapcase" intercambia los caracteres de mayusculas a minusculas y viceversa
+s = "mI cAdEnA" 
+print(s.swapcase()) #Mi CaDeNa
+
+# funcion "isalnum" verifica si la cadena de texto es alfanumerica
+s = "correo@dominio.com" # False
+print(s.isalnum())
+
+# funcion "isalpha" verifica si la cadena de texto es alfabetica
+s = "abcdefg" # True
+print(s.isalpha())
+
+# Funcion "split" separa la cadena de texto en una lista
+
+s = "Python,Java,C"
+print(s.split(",")) #['Python', 'Java', 'C']  # Separa la cadena de texto por comas
+
+# Funcion "strip" elimina los espacios en blanco al inicio y al final de la cadena de texto
+s = "  abc  "
+print(s.strip()) #abc # Elimina los espacios en blanco

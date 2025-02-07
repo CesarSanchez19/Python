@@ -1,5 +1,7 @@
 # Variables
 
+# Variables: Espacios en memoria que almacenan valores
+
 my_string_variable = "My string variable"
 
 print(my_string_variable)
