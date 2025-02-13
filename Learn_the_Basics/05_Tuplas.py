@@ -31,6 +31,8 @@ print(my_sum_tuple[2 : 5]) # Imprime los elementos de la posicion 2 a la 4 de la
 
 print(35 in my_sum_tuple) # Devuelve True si el elemento se encuentra en la tupla, de lo contrario False.
 
+## Tupla mutable (se convertir  en lista )
+
 my_tuple = list(my_tuple) # Convertir una tupla en una lista
 
 print(type(my_tuple)) # <class 'list'>
