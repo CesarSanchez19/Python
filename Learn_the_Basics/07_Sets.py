@@ -80,18 +80,22 @@ conjunto_b = {5, 2, 6, 7, 8}
 # Unión de conjuntos (combina ambos sin duplicar elementos)
 union_conjuntos = conjunto_a.union(conjunto_b)
 print(union_conjuntos)  # {1, 2, 3, 4, 5, 6, 7, 8}
+print(conjunto_a | conjunto_b) # Otra forma de union de dos conjuntos
 
 # Intersección de conjuntos (elementos en común)
 interseccion_conjuntos = conjunto_a.intersection(conjunto_b)
 print(interseccion_conjuntos)  # {2}
+print(conjunto_a & conjunto_b) # Otra forma de intersecciondos de dos conjuntos
 
 # Diferencia de conjuntos (elementos en A que no están en B)
 diferencia_conjuntos = conjunto_a.difference(conjunto_b)
 print(diferencia_conjuntos)  # {1, 3, 4}
+print(conjunto_a - conjunto_b) # Otra forma de diferencia de dos conjuntos
 
 # Diferencia simétrica (elementos que están en A o en B, pero no en ambos)
 diferencia_simetrica = conjunto_a.symmetric_difference(conjunto_b)
 print(diferencia_simetrica)  # {1, 3, 4, 5, 6, 7, 8}
+print(conjunto_a ^ conjunto_b) # Otra forma de Diferencia simétrica de dos conjuntos
 
 ## Otros métodos de conjuntos ##
 
