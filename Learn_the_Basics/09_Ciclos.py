@@ -90,13 +90,44 @@ for element in my_dict:
 else:
     print("El bucle for para diccionario ha finalizado")  # Se ejecuta si no se utiliza break
 
-
 # Ejemplo adicional: Uso de range() con for
 # El uso de range() permite crear una secuencia de números para iterar.
-print("\nEjemplo de uso de range() en un bucle for:")
-for i in range(5):  # Genera una secuencia de números del 0 al 4
-    print(i)  # Imprime cada número generado por range()
 
+# 1. Iterar un número fijo de veces
+print("Caso 1: Iterar un número fijo de veces")
+for i in range(5):  # Se ejecuta exactamente 5 veces, con valores de 0 a 4
+    print("Iteración:", i)  # Imprime el número de iteración actual
+
+# 2. Definir un rango de inicio y fin
+print("\nCaso 2: Definir un rango de inicio y fin")
+for i in range(2, 6):  # Genera valores desde 2 hasta 5
+    print(i)  # Imprime cada número del rango definido
+
+# 3. Usar un paso personalizado
+print("\nCaso 3: Usar un paso personalizado")
+for i in range(1, 10, 2):  # Inicia en 1, incrementa de 2 en 2, hasta 9
+    print(i)  # Imprime los valores impares del rango
+
+# 4. Recorrer números en orden inverso
+print("\nCaso 4: Recorrer números en orden inverso")
+for i in range(10, 0, -2):  # Inicia en 10, decrementa de 2 en 2, hasta 2
+    print(i)  # Imprime los valores pares en orden descendente
+
+# 5. Iterar sobre índices de una lista
+print("\nCaso 5: Iterar sobre índices de una lista")
+frutas = ["Manzana", "Banana", "Cereza"]
+for i in range(len(frutas)):  # Genera índices de 0 a len(frutas)-1
+    print(i, frutas[i])  # Imprime el índice y el elemento correspondiente
+
+# 6. Generar una lista de números con list()
+print("\nCaso 6: Generar una lista de números con list()")
+numeros = list(range(1, 6))  # Crea una lista con valores del 1 al 5
+print(numeros)  # Imprime la lista generada
+
+# 7. Iterar con enumerate()
+print("\nCaso 7: Iterar con enumerate()")
+for i, fruta in enumerate(frutas, start=1):  # Itera con índice desde 1
+    print(i, fruta)  # Imprime el índice y el elemento correspondiente
 
 # Simulación de un bucle do while
 """
