@@ -1,7 +1,6 @@
-### Hash Tables ###
+### Hash Tables o hashing ###
 
 """
-
 Una Hash Table es una estructura de datos que almacena pares clave-valor.
 En Python, los diccionarios (`dict`) implementan Hash Tables de manera eficiente.
 
@@ -11,155 +10,131 @@ En Python, los diccionarios (`dict`) implementan Hash Tables de manera eficiente
 - Puede manejar colisiones con técnicas como encadenamiento o direccionamiento abierto.
 """
 
-## Primera parte o uso basico del hash table
+# Implementación de una función hash simple
+# Convierte una clave en un índice dentro de la tabla
 
-def hash_key( key, m):
-    return key % m
+def funcion_hash(clave, tamano_tabla):
+    valor_hash = 0  # Inicializa el valor hash
+    for c in clave:  # Itera sobre cada caracter de la clave
+        valor_hash += ord(c) - ord('a') + 1  # Convierte el caracter en un número y lo suma
+    return valor_hash % tamano_tabla  # Asegura que el índice esté dentro del tamaño de la tabla
 
-m = 7 # Definimos la longitud o la cantidad de slots que tendra la tabla
+# Inicializamos la tabla hash de tamaño 7
+tabla_hash = [None] * 7
 
-print(f'The hash value for 3 is {hash_key(3,m)}')
+# Insertamos valores en la tabla hash
+strings = ["ab", "cd", "efg"]
+tamano_tabla = len(tabla_hash)
 
-## Aqui hay una colision entre 2 y 9
-print(f'The hash value for 2 is {hash_key(2,m)}')
-print(f'The hash value for 9 is {hash_key(9,m)}')
+for string in strings:
+    indice = funcion_hash(string, tamano_tabla)  # Calcula el índice de la clave
+    tabla_hash[indice] = string  # Almacena el valor en la tabla
 
-print(f'The hash value for 11 is {hash_key(11,m)}')
-print(f'The hash value for 7 is {hash_key(7,m)}')
+# Imprimimos la tabla hash
+for i, valor in enumerate(tabla_hash):
+    print(f'Índice {i}: {valor}')
 
+### Manejo de colisiones en Hash Tables ###
+print("-------------------------")
+print("\nColisiones en Hash Tables:")
+print("-------------------------")
+print("Encadenamiento separado o Open Hashing:")
 
+# Implementación de una tabla hash con encadenamiento separado
+class TablaHash:
+    def __init__(self, tamano):
+        self.tamano = tamano
+        self.tabla = [[] for _ in range(tamano)]  # Crea listas vacías para manejar colisiones
 
-# 📌 Ejemplo 1: Creación de una Hash Table en Python
-hash_table = {"nombre": "Carlos", "edad": 25, "ciudad": "Madrid"}
-print(hash_table)  # {'nombre': 'Carlos', 'edad': 25, 'ciudad': 'Madrid'}
+    def funcion_hash(self, clave):
+        return sum(ord(c) for c in clave) % self.tamano  # Calcula el índice de la clave
 
-# Imprime las claves (keys) que contenga el diccionario
-print(hash_table.keys())
+    def insertar(self, clave, valor):
+        indice = self.funcion_hash(clave)  # Obtiene el índice de almacenamiento
+        self.tabla[indice].append((clave, valor))  # Agrega el par clave-valor a la lista
 
-# Imprime los valores (values) que contenga el diccionario
-print(hash_table.values())
+    def obtener(self, clave):
+        indice = self.funcion_hash(clave)  # Obtiene el índice de búsqueda
+        for k, v in self.tabla[indice]:  # Busca la clave dentro de la lista enlazada
+            if k == clave:
+                return v  # Retorna el valor si se encuentra la clave
+        return None  # Retorna None si la clave no existe
 
-# Imprime todos las clave-valor (items) que contenga el diccionario
-print(hash_table.items())
-
-# 📌 Ejemplo 2: Inserción de un nuevo par clave-valor
-hash_table["profesion"] = "Ingeniero"
-print(hash_table)  # {'nombre': 'Carlos', 'edad': 25, 'ciudad': 'Madrid', 'profesion': 'Ingeniero'}
-
-# 📌 Ejemplo 3: Búsqueda de un valor por su clave
-print(hash_table["ciudad"])  # Madrid
-
-# 📌 Ejemplo 4: Eliminación de un elemento
-del hash_table["edad"]
-print(hash_table)  # {'nombre': 'Carlos', 'ciudad': 'Madrid', 'profesion': 'Ingeniero'}
-
-"""
-📌 Función hash en Python
-La función `hash()` convierte un valor en un número hash único.
-"""
-clave = "Python"
-print(hash(clave))  # Devuelve un número hash único
-
-# 📌 Ejemplo 5: Uso de la función hash con múltiples valores
-datos = ["perro", "gato", "elefante"]
-hashes = {dato: hash(dato) for dato in datos}
-print(hashes)  # Muestra el hash de cada palabra
-
-"""
-📌 Manejo de colisiones con Encadenamiento en una Clase
-Si dos claves generan el mismo hash, almacenamos múltiples valores en una lista.
-"""
-class HashTable:
-    def __init__(self, size):
-        self.size = size
-        self.table = [[] for _ in range(size)]
-    
-    def _hash(self, key):
-        return hash(key) % self.size
-    
-    def insert(self, key, value):
-        index = self._hash(key)
-        for pair in self.table[index]:
-            if pair[0] == key:
-                pair[1] = value  # Actualizar valor si la clave ya existe
+    def eliminar(self, clave):
+        indice = self.funcion_hash(clave)  # Obtiene el índice
+        for i, (k, v) in enumerate(self.tabla[indice]):  # Busca la clave dentro de la lista
+            if k == clave:
+                del self.tabla[indice][i]  # Elimina el par clave-valor si lo encuentra
                 return
-        self.table[index].append([key, value])
-    
-    def get(self, key):
-        index = self._hash(key)
-        for pair in self.table[index]:
-            if pair[0] == key:
-                return pair[1]
-        return None  # Retorna None si la clave no se encuentra
-    
-    def delete(self, key):
-        index = self._hash(key)
-        self.table[index] = [pair for pair in self.table[index] if pair[0] != key]
 
-# Uso de la tabla hash
-hash_map = HashTable(10)
-hash_map.insert("nombre", "Carlos")
-hash_map.insert("edad", 25)
-hash_map.insert("ciudad", "Madrid")
-print(hash_map.get("nombre"))  # Carlos
-hash_map.delete("edad")
-print(hash_map.get("edad"))  # None
+# Crear la tabla hash con encadenamiento separado
+hash_table = TablaHash(5)
 
-"""
-📌 Casos de Uso de Hash Tables en Python
-"""
-# Caso 1: Contar la frecuencia de elementos en una lista
-palabras = ["manzana", "banana", "manzana", "naranja", "banana", "manzana"]
-frecuencia = {}
-for palabra in palabras:
-    frecuencia[palabra] = frecuencia.get(palabra, 0) + 1
-print(frecuencia)  # {'manzana': 3, 'banana': 2, 'naranja': 1}
+# Insertar valores con posibles colisiones
+hash_table.insertar("gato", 10)
+hash_table.insertar("perro", 20)
+hash_table.insertar("tigre", 30)  # Puede colisionar con otra clave
 
-# Caso 2: Almacenar y buscar información de usuarios
-usuarios = {
-    "001": {"nombre": "Carlos", "edad": 25, "ciudad": "Madrid"},
-    "002": {"nombre": "Ana", "edad": 30, "ciudad": "Barcelona"},
-}
-print(usuarios["002"])  # {'nombre': 'Ana', 'edad': 30, 'ciudad': 'Barcelona'}
+# Imprimir la tabla hash con colisiones manejadas por listas enlazadas
+for i, lista in enumerate(hash_table.tabla):
+    print(f'Índice {i}: {lista}')
 
-# Caso 3: Detectar duplicados en una lista grande
-numeros = [10, 20, 30, 40, 10, 50, 60, 20]
-vistos = {}
-duplicados = [num for num in numeros if vistos.setdefault(num, 0) == 1]
-print(duplicados)  # [10, 20]
+# Obtener valores por clave
+print("Valor de 'gato':", hash_table.obtener("gato"))
+print("Valor de 'tigre':", hash_table.obtener("tigre"))
 
-# Caso 4: Implementar una caché para evitar cálculos repetidos
-cache = {}
-def factorial(n):
-    if n in cache:
-        return cache[n]
-    resultado = 1 if n in (0, 1) else n * factorial(n - 1)
-    cache[n] = resultado
-    return resultado
-print(factorial(5))  # 120
-print(factorial(6))  # 720 (reutiliza factorial(5))
+# Eliminar un valor de la tabla
+hash_table.eliminar("gato")
 
-# Caso 5: Contar caracteres en un texto
-texto = "programacion en python"
-conteo = {}
-for caracter in texto:
-    conteo[caracter] = conteo.get(caracter, 0) + 1
-print(conteo)
+print("-------------------------")
+print("\nOpen addressing o Closed Hashing:")
 
-# Caso 6: Usar una Hash Table para registrar estudiantes y sus notas
-notas_estudiantes = {
-    "Carlos": [90, 85, 88],
-    "Ana": [78, 80, 85],
-    "Pedro": [92, 88, 95]
-}
-print(notas_estudiantes["Ana"])  # [78, 80, 85]
+# Implementación de una tabla hash con direccionamiento abierto (doble hashing)
+class TablaHashDoble:
+    def __init__(self, tamanio):
+        self.tamanio = tamanio
+        self.tabla = [None] * tamanio  # Inicializa la tabla con valores None
 
-# Caso 7: Uso de un diccionario como un cache simple para mejorar rendimiento
-def fibonacci(n, cache={}):
-    if n in cache:
-        return cache[n]
-    if n <= 1:
-        return n
-    cache[n] = fibonacci(n - 1, cache) + fibonacci(n - 2, cache)
-    return cache[n]
-print(fibonacci(10))  # 55
+    def funcion_hash_primaria(self, clave):
+        return sum(ord(c) for c in clave) % self.tamanio  # Primera función hash
+
+    def funcion_hash_secundaria(self, clave):
+        return 1 + (sum(ord(c) for c in clave) % (self.tamanio - 1))  # Segunda función hash
+
+    def insertar(self, clave, valor):
+        indice = self.funcion_hash_primaria(clave)  # Calcula el primer índice
+        desplazamiento = self.funcion_hash_secundaria(clave)  # Calcula el desplazamiento
+
+        # Aplica doble hashing hasta encontrar un índice vacío
+        while self.tabla[indice] is not None:
+            indice = (indice + desplazamiento) % self.tamanio  # Calcula el siguiente índice
+
+        self.tabla[indice] = (clave, valor)  # Almacena la clave y el valor en la tabla
+
+    def obtener(self, clave):
+        indice = self.funcion_hash_primaria(clave)  # Calcula el primer índice
+        desplazamiento = self.funcion_hash_secundaria(clave)  # Calcula el desplazamiento
+
+        # Busca la clave en la tabla usando doble hashing
+        while self.tabla[indice] is not None:
+            if self.tabla[indice][0] == clave:
+                return self.tabla[indice][1]  # Retorna el valor si encuentra la clave
+            indice = (indice + desplazamiento) % self.tamanio  # Calcula el siguiente índice
+
+        return None  # Retorna None si no encuentra la clave
+
+# Crear la tabla hash con doble hashing
+hash_table_doble = TablaHashDoble(7)
+
+# Insertar valores con colisiones posibles
+hash_table_doble.insertar("gato", 10)
+hash_table_doble.insertar("perro", 20)  # Puede colisionar con "gato"
+hash_table_doble.insertar("tigre", 30)  # Puede colisionar con "gato" y "perro"
+
+# Imprimir la tabla hash con direccionamiento abierto
+for i, valor in enumerate(hash_table_doble.tabla):
+    print(f'Índice {i}: {valor}')
+
+# Obtener valores por clave
+print("Valor de 'gato':", hash_table_doble.obtener("gato"))
+print("Valor de 'tigre':", hash_table_doble.obtener("tigre"))
